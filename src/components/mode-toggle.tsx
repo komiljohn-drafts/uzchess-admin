@@ -28,7 +28,11 @@ export function ModeToggle({
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" {...contentProps}>
+      <DropdownMenuContent
+        align="end"
+        className="bg-white dark:bg-black"
+        {...contentProps}
+      >
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>

@@ -1,15 +1,17 @@
 import { Toaster } from "react-hot-toast"
-import { RouterProvider } from "react-router-dom"
 
+import { AuthProvider } from "./providers/auth-provider"
 import { QueryProvider } from "./providers/query-provider"
 import { ThemeProvider } from "./providers/theme-provider"
-import router from "./router"
+import Routers from "./router"
 
 function App() {
   return (
     <QueryProvider>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <Routers />
+        </AuthProvider>
         <Toaster />
       </ThemeProvider>
     </QueryProvider>

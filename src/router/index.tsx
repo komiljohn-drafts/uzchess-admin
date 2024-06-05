@@ -1,22 +1,42 @@
+import { useContext } from "react"
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Route
+  Navigate,
+  Route,
+  RouterProvider
 } from "react-router-dom"
+
+import { MainLayout } from "@/layouts/MainLayout"
+import { menuItems } from "@/lib/menuItems"
+import { AuthContext } from "@/providers/auth-provider"
 
 import AuthPage from "../pages/AuthPage"
 import CoursesPage from "../pages/CoursesPage"
-import HomePage from "../pages/HomePage"
 import NotFoundPage from "../pages/NotFoundPage"
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route errorElement={<NotFoundPage />}>
-      <Route path="/auth" element={<AuthPage />} />
-      <Route path="/" element={<HomePage />} />
-      <Route path="/courses" element={<CoursesPage />} />
-    </Route>
-  )
-)
+function Routers() {
+  const values = useContext(AuthContext)
 
-export default router
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      !values?.isAuth ? (
+        <Route>
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Route>
+      ) : (
+        <Route element={<MainLayout />} errorElement={<NotFoundPage />}>
+          {menuItems.map((item) => (
+            <Route key={item.id} path={item.path} element={<CoursesPage />} />
+          ))}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      )
+    )
+  )
+
+  return <RouterProvider router={router} />
+}
+
+export default Routers
