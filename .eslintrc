@@ -25,6 +25,10 @@
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "react/react-in-jsx-scope": "off",
-    "no-console": "error"
+    "no-console": "error",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off"
   }
 }
