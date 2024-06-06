@@ -19,6 +19,11 @@ export function UserMenu({
 }) {
   const authContextValues = useContext(AuthContext)
 
+  const handleLogout = () => {
+    authContextValues?.setIsAuth(false)
+    localStorage.removeItem("token")
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,7 +42,7 @@ export function UserMenu({
           Profil
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => authContextValues?.setIsAuth(false)}
+          onClick={handleLogout}
           className="flex items-center gap-2"
         >
           <LogOut />
