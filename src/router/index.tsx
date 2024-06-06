@@ -9,11 +9,12 @@ import {
 
 import { MainLayout } from "@/layouts/MainLayout"
 import { menuItems } from "@/lib/menuItems"
+import HomePage from "@/pages/HomePage"
 import { AuthContext } from "@/providers/auth-provider"
 
-import AuthPage from "../pages/AuthPage"
 import CoursesPage from "../pages/CoursesPage"
-import NotFoundPage from "../pages/NotFoundPage"
+import ErrorPage from "../pages/ErrorPage"
+import LoginPage from "../pages/LoginPage"
 
 function Routers() {
   const values = useContext(AuthContext)
@@ -22,11 +23,12 @@ function Routers() {
     createRoutesFromElements(
       !values?.isAuth ? (
         <Route>
-          <Route path="/login" element={<AuthPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Route>
       ) : (
-        <Route element={<MainLayout />} errorElement={<NotFoundPage />}>
+        <Route element={<MainLayout />} errorElement={<ErrorPage />}>
+          <Route path="/" element={<HomePage />} />
           {menuItems.map((item) => (
             <Route key={item.id} path={item.path} element={<CoursesPage />} />
           ))}

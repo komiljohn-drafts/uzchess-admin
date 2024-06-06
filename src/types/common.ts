@@ -7,3 +7,7 @@ export interface IAxiosError {
     }
   }
 }
+
+export interface Response<T> {
+  data: T
+}

@@ -1,5 +1,5 @@
-import { LogOut, User, UserCircle } from "lucide-react"
-import { ComponentProps, useContext } from "react"
+import { Ellipsis, Eye, Pencil, Trash2 } from "lucide-react"
+import { ComponentProps } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -8,23 +8,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { AuthContext } from "@/providers/auth-provider"
 
-export function UserMenu({
+export function ActionsCell({
   buttonProps,
   contentProps
 }: {
   buttonProps?: ComponentProps<typeof Button>
   contentProps?: ComponentProps<typeof DropdownMenuContent>
 }) {
-  const authContextValues = useContext(AuthContext)
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" {...buttonProps}>
-          <UserCircle />
-          <span className="sr-only">User menu</span>
+        <Button
+          variant="outline"
+          size="icon"
+          className="size-8"
+          {...buttonProps}
+        >
+          <Ellipsis className="size-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -32,16 +33,17 @@ export function UserMenu({
         className="bg-white dark:bg-black"
         {...contentProps}
       >
-        <DropdownMenuItem className="flex items-center gap-2">
-          <User />
-          Profil
+        <DropdownMenuItem>
+          <Eye className="size-5 mr-2" />
+          Ko&apos;rish
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => authContextValues?.setIsAuth(false)}
-          className="flex items-center gap-2"
-        >
-          <LogOut />
-          Chiqish
+        <DropdownMenuItem>
+          <Pencil className="size-[18px] mr-2" />
+          O&apos;zgartirish
+        </DropdownMenuItem>
+        <DropdownMenuItem className="text-red-500">
+          <Trash2 className="size-5 mr-2" />
+          O&apos;chirish
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

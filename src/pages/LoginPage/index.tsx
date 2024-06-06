@@ -16,11 +16,12 @@ import {
 } from "@/components/ui/card"
 import Typography from "@/components/ui/typography"
 import { formatErrorMsgs } from "@/lib/formatErrorMsgs"
+import { setStorageItem } from "@/lib/storageUtils"
 import { AuthContext } from "@/providers/auth-provider"
 import { LoginFormType, loginSchema } from "@/schemas/loginSchema"
 import { IAxiosError } from "@/types/common"
 
-export default function AuthPage() {
+export default function LoginPage() {
   const contextValues = useContext(AuthContext)
 
   const methods = useForm<LoginFormType>({
@@ -34,7 +35,8 @@ export default function AuthPage() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["ADMIN_SIGNIN"],
     mutationFn: (values: LoginFormType) => loginRequest(values),
-    onSuccess: () => {
+    onSuccess: (res) => {
+      setStorageItem("token", res.data?.data ?? "")
       toast.success("UzChess platformasiga xush kelibsiz!")
       contextValues?.setIsAuth(true)
     },
